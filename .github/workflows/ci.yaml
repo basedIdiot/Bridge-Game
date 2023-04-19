@@ -21,33 +21,23 @@ jobs:
       - name: Install Aftman Toolchains
         run: aftman install
 
-      - name: Install Dependencies
-        run: wally install
-
       - name: Create Packages Directory
         run: mkdir -p Packages
 
       - name: Run Stylua
-        run: stylua lib --check
+        run: stylua src --check
 
       - name: Run Selene
-        run : selene lib
+        run : selene src
 
-      - name: Build pack.rbxm
-        run: rojo build -o pack.rbxm pack.project.json
+      - name: Build bridge-game.rbxm
+        run: rojo build -o bridge-game.rbxl default.project.json
 
-      - name: Upload pack.rbxm as build artifact
+      - name: Upload bridge-game.rbxm as build artifact
         uses: actions/upload-artifact@v3
         with: 
-          name: draggable-ui
-          path: pack.rbxm
-
-      - name: Get Release from wally.toml
-        uses: SebRollen/toml-action@v1.0.0
-        id: read_toml
-        with: 
-          file: 'wally.toml'
-          field: 'package.version'
+          name: Bridge-Game
+          path: bridge-game.rbxl
 
   development: 
     if: ${{ github.ref == 'refs/heads/dev' }}
@@ -66,31 +56,19 @@ jobs:
         run: aftman install
 
       - name: Run Stylua
-        run: stylua lib --check
+        run: stylua src --check
 
       - name: Run Selene
-        run : selene lib
-
-      - name: Install Dependencies
-        run: wally install
+        run : selene src
 
       - name: Create Packages Directory
         run: mkdir -p Packages
 
-      - name: Build test-pack.rbxm
-        run: rojo build -o test-pack.rbxm pack.project.json
-
-      - name: Build testing place
-        run: rojo build -o testing.rbxl testing.project.json
-
-      - name: Upload test-pack.rbxm as build artifact
-        uses: actions/upload-artifact@v3
-        with: 
-          name: draggable-ui
-          path: test-pack.rbxm
+      - name: Build place
+        run: rojo build -o bridge-game.rbxl default.project.json
 
       - name: Upload testing.rbxl as build artifact
         uses: actions/upload-artifact@v3
         with: 
-          name: draggable-ui
-          path: testing.rbxl
+          name: Bridge-Game
+          path: bridge-game.rbxl
