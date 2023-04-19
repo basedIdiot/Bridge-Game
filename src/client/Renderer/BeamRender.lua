@@ -4,9 +4,9 @@ BeamRender.inteface = {}
 BeamRender.schema = {}
 BeamRender.metatable = { __index = BeamRender }
 
-local Point = require(script.Parent.Parent.Physics.Point)
+local Point = require(script.Parent.Parent.PhysicsObjects.Point)
 type Point = Point.Point
-local Beam = require(script.Parent.Parent.Physics.Beam)
+local Beam = require(script.Parent.Parent.PhysicsObjects.Beam)
 type Beam = Beam.Beam
 local PointRender = require(script.Parent.PointRender)
 
@@ -44,7 +44,6 @@ function BeamRender.interface.new(P1: Vector2, P2: Vector2, Thickness: number)
 	return setmetatable(self, BeamRender)
 end
 function BeamRender.schema:Update()
-	self.Beam:Update()
 	local Position = (self.Point2.Position - self.Point1.Position) / 2 + self.Point1.Position
 	local Rotation = math.deg(math.atan2(self.Point2.Position.Y - Position.X, self.Point2.Position.X - Position.X))
 	local Size = (self.Point2.Position - self.Point1.Position).Magnitude

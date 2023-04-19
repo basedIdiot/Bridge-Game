@@ -1,3 +1,4 @@
+--[[
 local BeamRender = require(script.Parent.Renderer.BeamRender)
 
 local UserInputService = game:GetService("UserInputService")
@@ -33,3 +34,4 @@ UserInputService.InputBegan:Connect(function(Input, GameProcessedEvent)
 		end
 	end
 end)
+]]
