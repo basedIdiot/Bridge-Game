@@ -22,6 +22,11 @@
         }
       }
     },
+    "StarterGui": {
+      "BridgeGui": {
+        "$className": "ScreenGui"
+      }
+    },
 
     "Workspace": {
       "$properties": {
