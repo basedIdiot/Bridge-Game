@@ -4,7 +4,7 @@ PointRender.interface = {}
 PointRender.schema = {}
 PointRender.metatable = { __index = PointRender }
 
-local Point = require(script.Parent.Parent.Physics.Point)
+local Point = require(script.Parent.Parent.PhysicsObjects.Point)
 type Point = Point.Point
 
 local BridgeGui = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("BridgeGui")
@@ -37,7 +37,6 @@ function PointRender.interface.getFromElement(Element)
     return PointRenderArray[Element]
 end
 function PointRender.schema:Update()
-	self.Point:Update()
 	self:SetPosition(self.Point.Position)
 end
 function PointRender.schema:SetSize(Size: number)
