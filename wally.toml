@@ -1,0 +1,3 @@
+[dependencies]
+janitor = "howmanysmall/janitor@1.15.1"
+fastsignal = "lucasmzreal/fastsignal@10.2.1"
