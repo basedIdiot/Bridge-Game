@@ -9,23 +9,32 @@ type Point = Point.Point
 local Beam = require(script.Parent.Parent.Physics.Beam)
 type Beam = Beam.Beam
 local PointRender = require(script.Parent.PointRender)
+type PointRender = PointRender.PointRender
 
 local BridgeGui = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("BridgeGui")
 
-function BeamRender.interface.new(P1: Vector2, P2: Vector2, Thickness: number)
+function BeamRender.interface.new(P1: Vector2 | PointRender,  P2: Vector2 | PointRender, Thickness: number)
 	local self = {}
 
-	self.Point1Render = PointRender.new(P1)
-	self.Point2Render = PointRender.new(P2)
+	if typeof(P1) == Vector2 then
+		self.Point1Render = PointRender.new(P1)
+	else
+		self.Point1Render = P1
+	end
+	if typeof(P2) == Vector2 then
+		self.Point2Render = PointRender.new(P2)
+	else
+		self.Point2Render = P2
+	end
     self.Point1 = self.Point1Render.Point
     self.Point2 = self.Point2Render.Point
 
 	self.Beam = Beam.new(self.Point1, self.Point2)
 
 	local Element = Instance.new("Frame")
-	local Position = (P2.Position - P1.Position) / 2 + P1.Position
-	local Rotation = math.deg(math.atan2(P2.Position.Y - Position.X, P2.Position.X - Position.X))
-	local Size = (P2.Position - P1.Position).Magnitude
+	local Position = (self.Point2.Position - self.Point1.Position) / 2 + self.Point1.Position
+	local Rotation = math.deg(math.atan2(self.Point2.Position.Y - Position.X, self.Point2.Position.X - Position.X))
+	local Size = (self.Point2.Position - self.Point1.Position).Magnitude
 	Element.Position = UDim2.fromOffset(Position.X, Position.Y)
 	Element.Orientation = Rotation
 	Element.Size = UDim2.fromOffset(Size, Thickness)
@@ -52,5 +61,5 @@ function BeamRender.schema:Update()
 	self.Element.Orientation = Rotation
 	self.Element.Size = UDim2.fromOffset(Size, self.Element.Size.Y.Offset)
 end
-type BeamRender = typeof(BeamRender.interface.new(table.unpack(...)))
+export type BeamRender = typeof(BeamRender.interface.new(table.unpack(...)))
 return BeamRender.inteface

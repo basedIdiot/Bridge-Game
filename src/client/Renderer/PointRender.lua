@@ -46,5 +46,5 @@ end
 function PointRender.schema:SetPosition(Position: Vector2)
 	self.Element.Position = UDim2.fromOffset(Vector2.X, Vector2.Y)
 end
-type PointRender = typeof(PointRender.interface.new(table.unpack(...)))
+export type PointRender = typeof(PointRender.interface.new(table.unpack(...)))
 return PointRender.interface
