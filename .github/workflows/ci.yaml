@@ -38,37 +38,3 @@ jobs:
         with: 
           name: Bridge-Game
           path: bridge-game.rbxl
-
-  development: 
-    if: ${{ github.ref == 'refs/heads/dev' }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout development
-        uses: actions/checkout@v3
-
-      - name: Setup Aftman
-        uses: ok-nick/setup-aftman@v0.3.0
-        with: 
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install Aftman Toolchains
-        run: aftman install
-
-      - name: Run Stylua
-        run: stylua src --check
-
-      - name: Run Selene
-        run : selene src
-
-      - name: Create Packages Directory
-        run: mkdir -p Packages
-
-      - name: Build place
-        run: rojo build -o bridge-game.rbxl default.project.json
-
-      - name: Upload testing.rbxl as build artifact
-        uses: actions/upload-artifact@v3
-        with: 
-          name: Bridge-Game
-          path: bridge-game.rbxl
